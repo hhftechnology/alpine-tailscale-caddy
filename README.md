@@ -1,5 +1,7 @@
 # Tailscale-Caddy Proxy
 
+[![Docker Image CI/CD](https://github.com/hhftechnology/alpine-tailscale-caddy/actions/workflows/docker-publish.yml/badge.svg?branch=main)](https://github.com/hhftechnology/alpine-tailscale-caddy/actions/workflows/docker-publish.yml)
+
 A Docker image that seamlessly enables sharing of HTTP services over the Tailscale network with automatic HTTPS support. This solution combines the power of Tailscale's secure networking with Caddy's automated certificate management to provide a robust, maintenance-free way to expose web services to authorized users.
 
 ## Overview
