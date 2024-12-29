@@ -1,0 +1,42 @@
+version: '3'
+
+networks:
+  internal_network:
+    external: false
+
+volumes:
+  ts_state_app1:
+  ts_state_app2:
+
+services:
+  app1:
+    image: ghost:latest
+    networks:
+      - internal_network
+
+  app2:
+    image: wordpress:latest
+    networks:
+      - internal_network
+
+  ts_proxy_app1:
+    image: hhftechnology/alpine-tailscale-caddy:latest
+    volumes:
+      - ts_state_app1:/var/lib/tailscale
+    environment:
+      - TS_HOSTNAME=blog-proxy
+      - TS_TAILNET=mycompany
+      - CADDY_TARGET=app1:2368
+    networks:
+      - internal_network
+
+  ts_proxy_app2:
+    image: hhftechnology/alpine-tailscale-caddy:latest
+    volumes:
+      - ts_state_app2:/var/lib/tailscale
+    environment:
+      - TS_HOSTNAME=wordpress-proxy
+      - TS_TAILNET=mycompany
+      - CADDY_TARGET=app2:80
+    networks:
+      - internal_network
